@@ -43,9 +43,8 @@ public class MemberService {
             memberResponses.add(mr);
         }*/
 
-        List<MemberResponse> memberResponses = members.stream().map(m->new MemberResponse(m,includeAll)).toList();
+        return members.stream().map(m->new MemberResponse(m,includeAll)).toList();
 
-    return memberResponses;
     }
 
 }

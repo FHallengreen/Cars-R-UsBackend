@@ -51,6 +51,12 @@ public class CarService {
         carRepository.save(car);
     }
 
+    public void setMaxDiscount(int car_id, int value) {
+        Car car = carRepository.findById(car_id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+        car.setBestDiscount(value);
+        carRepository.save(car);
+    }
+
     public ResponseEntity<Boolean> editCar(CarRequest body, int car_id) {
         Car car = carRepository.findById(car_id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
         car.setBrand(body.getBrand());

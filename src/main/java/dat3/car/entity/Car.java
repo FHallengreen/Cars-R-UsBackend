@@ -38,11 +38,11 @@ public class Car {
     @UpdateTimestamp
     private LocalDateTime lastEdited;
 
-    public Car(String brand, String model, double pricePrDay, int bestDiscount) {
+    public Car(int car_id, String brand, String model, double pricePrDay, int bestDiscount) {
+        this.car_id = car_id;
         this.brand = brand;
         this.model = model;
         this.pricePrDay = pricePrDay;
         this.bestDiscount = bestDiscount;
     }
-
 }

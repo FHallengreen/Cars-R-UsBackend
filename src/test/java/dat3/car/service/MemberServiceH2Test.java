@@ -12,23 +12,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Transactional (rollback)
+// Includes what is necessary for JPA/Hibernate and only that.
+// Uses in-memory database(H2).
+
 @DataJpaTest
-class MemberServiceTest {
+class MemberServiceH2Test {
 
     @Autowired
     private MemberRepository memberRepository;
 
     private MemberService memberService;
 
+    boolean dataIsReady = false;
     @BeforeEach
     void setUp() {
-        Member m1 = new Member("member1", "memb1@a.dk", "1234", "Kurt", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
-        Member m2 = new Member("member2", "aaa@dd.dk", "4321", "Hanne", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
-
-        memberRepository.save(m1);
-        memberRepository.save(m2);
-        memberService = new MemberService(memberRepository);
+        if(!dataIsReady){  //Explain this
+            memberRepository.save(new Member("m1", "test12", "m1@a.dk",  "bb", "Olsen", "xx vej 34", "Lyngby", "2800"));
+            memberRepository.save(new Member("m2", "test12", "m2@a.dk", "aa", "hansen", "xx vej 34", "Lyngby", "2800"));
+            dataIsReady = true;
+            memberService = new MemberService(memberRepository); //Real DB is mocked away with H2
+        }
     }
+
 
     @Test
     void getMembers() {

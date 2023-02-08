@@ -30,7 +30,7 @@ class MemberController {
     //ADMIN
     @GetMapping(path = "/{username}")
     MemberResponse getMemberById(@PathVariable String username) throws Exception {
-        return null;
+        return memberService.getMemberById(username);
     }
 
     //ANONYM
@@ -42,19 +42,19 @@ class MemberController {
     //MEMBER
     @PutMapping("/{username}")
     ResponseEntity<Boolean> editMember(@RequestBody MemberRequest body, @PathVariable String username) {
-        return null;
+        return memberService.editMember(body, username);
     }
 
     //ADMIN
     @PatchMapping("/ranking/{username}/{value}")
     void setRankingForUser(@PathVariable String username, @PathVariable int value) {
-
+        memberService.setRankingForUser(username, value);
     }
 
     // ADMIN
     @DeleteMapping("/{username}")
     void deleteMemberByUsername(@PathVariable String username) {
-
+        memberService.deleteMemberByUsername(username);
     }
 
 }

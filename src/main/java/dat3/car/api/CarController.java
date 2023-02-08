@@ -52,7 +52,7 @@ public class CarController {
     }
 
     // ADMIN
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/{car_id}")
     void deleteCarByID(@PathVariable int car_id) {
     carService.deleteCarByCarId(car_id);
     }

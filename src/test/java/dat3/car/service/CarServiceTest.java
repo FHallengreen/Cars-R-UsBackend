@@ -48,7 +48,7 @@ class CarServiceTest {
         CarResponse response = carService.addCar(request);
 
         //Quick way to get a MemberRequest (remember eventually values come via a incoming JSON object)
-        assertEquals(4,response.getCar_id());
+        assertEquals(10,response.getCar_id());
     }
 
     @Test

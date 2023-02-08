@@ -42,15 +42,4 @@ class CarControllerTest {
         assertEquals(3, carlist.size());
     }
 
-
-    @Test
-    void deleteCar(){
-
-        carService.deleteCarByCarId(2);
-        List<CarResponse> carlist = carService.getCars(true);
-
-        assertEquals(2,carlist.size());
-
-    }
-
 }

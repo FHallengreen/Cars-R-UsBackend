@@ -2,6 +2,7 @@ package dat3.car.service;
 
 import dat3.car.dto.CarRequest;
 import dat3.car.dto.CarResponse;
+import dat3.car.dto.MemberRequest;
 import dat3.car.dto.MemberResponse;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
@@ -23,12 +24,7 @@ public class CarService {
     }
     public CarResponse addCar(CarRequest carRequest) {
 
-        if (carRepository.existsById(carRequest.getCar_id())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car with this ID already exist");
-        }
-
-
-        Car newCar = carRequest.getCarEntity(carRequest);
+        Car newCar = CarRequest.getCarEntity(carRequest);
         newCar = carRepository.save(newCar);
         return new CarResponse(newCar, false);
     }

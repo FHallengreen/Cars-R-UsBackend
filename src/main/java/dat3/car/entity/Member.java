@@ -1,5 +1,6 @@
 package dat3.car.entity;
 
+import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,9 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Member {
-
-    @Id
-    private String username;
-
-    private String email;
-    private String password;
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE")
+public class Member extends UserWithRoles {
     private String firstName;
     private String lastName;
     private String street;
@@ -47,10 +44,8 @@ public class Member {
     Map<String,String> phones = new HashMap<>();
 
 
-    public Member(String username, String email, String password, String firstName, String lastName, String street, String city, String zip) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public Member(String user, String email, String password, String firstName, String lastName, String street, String city, String zip) {
+        super(user, password, email);
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;

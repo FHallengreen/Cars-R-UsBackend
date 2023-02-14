@@ -15,6 +15,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Configuration
 @EnableJpaRepositories(basePackages = {"dat3.security.repository", "dat3.car.repository"})
 @ComponentScan(basePackages = "dat3.security")
@@ -44,7 +49,7 @@ public class DeveloperData implements ApplicationRunner {
 
         Member m1 = new Member("member1", "memb1@a.dk", "1234", "Kurt", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
 
-//        Member m2 = new Member("member2", "aaa@dd.dk", "4321", "Hanne", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
+        Member m2 = new Member("member2", "aaa@dd.dk", "4321", "Hanne", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
 
         Car car1 = new Car("Volvo", "CX90", 895, 695);
         Car car2 = new Car("BMW", "i330", 795, 645);
@@ -52,7 +57,7 @@ public class DeveloperData implements ApplicationRunner {
 
 
         carRepository.save(car1);
-       /* carRepository.save(car2);
+        carRepository.save(car2);
         carRepository.save(car3);
 
         List<String> colours1 = new ArrayList<>();
@@ -70,10 +75,10 @@ public class DeveloperData implements ApplicationRunner {
         phonenumbers.put("mobile","12345");
         phonenumbers.put("work", "45678");
         m1.setPhones(phonenumbers);
-        m2.setPhones(phonenumbers);*/
+        m2.setPhones(phonenumbers);
 
         memberRepository.save(m1);
-//        memberRepository.save(m2);
+        memberRepository.save(m2);
 
         setupUserWithRoleUsers();
     }

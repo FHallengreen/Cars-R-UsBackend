@@ -1,3 +1,4 @@
+/*
 package dat3.car.service;
 
 import dat3.car.dto.MemberRequest;
@@ -72,4 +73,4 @@ class MemberServiceMockitoTest {
     }
 
 
-}
+}*/

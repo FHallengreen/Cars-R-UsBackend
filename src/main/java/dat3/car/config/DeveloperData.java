@@ -2,8 +2,11 @@ package dat3.car.config;
 
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
+import dat3.car.entity.Reservation;
 import dat3.car.repository.CarRepository;
 import dat3.car.repository.MemberRepository;
+import dat3.car.repository.ReservationRepository;
+import dat3.car.service.ReservationService;
 import dat3.security.entity.Role;
 import dat3.security.entity.UserWithRoles;
 import dat3.security.repository.UserWithRolesRepository;
@@ -15,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +36,8 @@ public class DeveloperData implements ApplicationRunner {
     CarRepository carRepository;
     @Autowired
     private UserWithRolesRepository userWithRolesRepository;
-
-
+    @Autowired
+    private ReservationRepository reservationRepository;
 
 
     final String passwordUsedByAll = "test12";
@@ -56,10 +61,6 @@ public class DeveloperData implements ApplicationRunner {
         Car car3 = new Car("VW", "ID4", 695, 595);
 
 
-        carRepository.save(car1);
-        carRepository.save(car2);
-        carRepository.save(car3);
-
         List<String> colours1 = new ArrayList<>();
         colours1.add("blue");
         colours1.add("red");
@@ -77,10 +78,22 @@ public class DeveloperData implements ApplicationRunner {
         m1.setPhones(phonenumbers);
         m2.setPhones(phonenumbers);
 
+        carRepository.save(car1);
+        carRepository.save(car2);
+        carRepository.save(car3);
+
         memberRepository.save(m1);
         memberRepository.save(m2);
 
+        Reservation reservation1 = new Reservation(car1, m1, LocalDateTime.now());
+        Reservation reservation2 = new Reservation(car1, m2, LocalDateTime.now());
+
         setupUserWithRoleUsers();
+
+        reservationRepository.save(reservation1);
+        reservationRepository.save(reservation2);
+
+
     }
 
     private void setupUserWithRoleUsers() {

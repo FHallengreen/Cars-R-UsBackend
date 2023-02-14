@@ -43,6 +43,8 @@ public class Member extends UserWithRoles {
     @Column(name = "phone_number")
     Map<String,String> phones = new HashMap<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
     public Member(String user, String email, String password, String firstName, String lastName, String street, String city, String zip) {
         super(user, password, email);

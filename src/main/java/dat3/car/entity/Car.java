@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,6 +39,9 @@ public class Car {
     @UpdateTimestamp
     private LocalDateTime lastEdited;
 
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
+
     public Car(int car_id, String brand, String model, double pricePrDay, int bestDiscount) {
         this.car_id = car_id;
         this.brand = brand;
@@ -51,5 +55,18 @@ public class Car {
         this.model = model;
         this.pricePrDay = pricePrDay;
         this.bestDiscount = bestDiscount;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "car_id=" + car_id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", pricePrDay=" + pricePrDay +
+                ", bestDiscount=" + bestDiscount +
+                ", created=" + created +
+                ", lastEdited=" + lastEdited +
+                '}';
     }
 }

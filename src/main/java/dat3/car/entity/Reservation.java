@@ -1,5 +1,6 @@
 package dat3.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "username")
     private Member member;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime reservationDate;
 
     public Reservation(Car car, Member member, LocalDateTime reservationDate) {

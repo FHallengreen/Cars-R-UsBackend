@@ -1,5 +1,6 @@
 package dat3.car.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
 import dat3.car.entity.Reservation;
@@ -16,6 +17,7 @@ public class ReservationRequest {
 
     private Member username;
     private Car carId;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime reservationDate;
 
     public ReservationRequest(Member username, Car carId, LocalDateTime reservationDate) {

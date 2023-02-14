@@ -33,12 +33,7 @@ private final MemberRepository memberRepository;
               throw new Exception("Missing data");
           }
           else {
-                Reservation newReservation = new Reservation();
-                newReservation.setCar(carRepository.findById(body.getCarId().getCar_id()).orElse(null));
-                newReservation.setMember(memberRepository.findById(body.getUsername().getUsername()).orElse(null));
-                newReservation.setReservationDate(body.getReservationDate());
-                newReservation = reservationRepository.save(newReservation);
-                return new ReservationResponse(newReservation);
+              Reservation reservation = new Reservation();
           }
         } catch (Exception e) {
             System.out.println(e.getMessage());

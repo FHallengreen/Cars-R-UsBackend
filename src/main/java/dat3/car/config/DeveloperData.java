@@ -85,8 +85,8 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.save(m1);
         memberRepository.save(m2);
 
-        Reservation reservation1 = new Reservation(car1, m1, LocalDateTime.now());
-        Reservation reservation2 = new Reservation(car1, m2, LocalDateTime.now());
+        Reservation reservation1 = new Reservation(car1, m1, LocalDateTime.of(2023,3,4,12,0));
+        Reservation reservation2 = new Reservation(car1, m2, LocalDateTime.of(2023,3,4,4,0));
 
         setupUserWithRoleUsers();
 

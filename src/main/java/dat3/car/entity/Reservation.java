@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,23 +25,18 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "username")
     private Member member;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @CreationTimestamp
     private LocalDateTime reservationDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime rentalDate;
 
-    public Reservation(Car car, Member member, LocalDateTime reservationDate) {
+
+    public Reservation(Car car, Member member, LocalDateTime rentalDate) {
         this.car = car;
         this.member = member;
-        this.reservationDate = reservationDate;
+        this.rentalDate = rentalDate;
     }
 
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", car=" + car +
-                ", member=" + member +
-                ", reservationDate=" + reservationDate +
-                '}';
-    }
+
 
 }

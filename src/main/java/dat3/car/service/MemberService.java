@@ -19,12 +19,9 @@ import java.util.List;
 public class MemberService {
 
     MemberRepository memberRepository;
-    private final ReservationRepository reservationRepository;
 
-    public MemberService(MemberRepository memberRepository,
-                         ReservationRepository reservationRepository) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.reservationRepository = reservationRepository;
     }
 
     public MemberResponse addMember(MemberRequest memberRequest) {
@@ -39,7 +36,6 @@ public class MemberService {
 
         Member newMember = MemberRequest.getMemberEntity(memberRequest);
         newMember = memberRepository.save(newMember);
-        List<Reservation> reservations = reservationRepository.findByMemberUsername(newMember.getUsername());
         return new MemberResponse(newMember, false, false);
     }
 

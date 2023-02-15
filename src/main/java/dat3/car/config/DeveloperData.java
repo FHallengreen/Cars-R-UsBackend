@@ -36,7 +36,7 @@ public class DeveloperData implements ApplicationRunner {
     @Autowired
     CarRepository carRepository;
     @Autowired
-    private UserWithRolesRepository userWithRolesRepository;
+    UserWithRolesRepository userWithRolesRepository;
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired

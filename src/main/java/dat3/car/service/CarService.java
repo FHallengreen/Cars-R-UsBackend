@@ -2,10 +2,7 @@ package dat3.car.service;
 
 import dat3.car.dto.CarRequest;
 import dat3.car.dto.CarResponse;
-import dat3.car.dto.MemberRequest;
-import dat3.car.dto.MemberResponse;
 import dat3.car.entity.Car;
-import dat3.car.entity.Member;
 import dat3.car.repository.CarRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

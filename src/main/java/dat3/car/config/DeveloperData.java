@@ -39,7 +39,6 @@ public class DeveloperData implements ApplicationRunner {
     @Autowired
     private ReservationRepository reservationRepository;
 
-
     final String passwordUsedByAll = "test12";
 
     /*****************************************************************************************

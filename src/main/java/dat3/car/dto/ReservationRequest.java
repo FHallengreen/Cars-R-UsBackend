@@ -18,12 +18,12 @@ public class ReservationRequest {
     private Member username;
     private Car carId;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime reservationDate;
+    private LocalDateTime rentalDate;
 
-    public ReservationRequest(Member username, Car carId, LocalDateTime reservationDate) {
+    public ReservationRequest(Member username, Car carId, LocalDateTime rentalDate) {
         this.username = username;
         this.carId = carId;
-        this.reservationDate = reservationDate;
+        this.rentalDate = rentalDate;
     }
 
 

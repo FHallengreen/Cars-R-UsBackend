@@ -26,7 +26,7 @@ public class ReservationResponse {
     private String brand;
     private String model;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime reservationDate;
+    private LocalDateTime rentalDate;
 
 
     public ReservationResponse(Reservation r) {
@@ -36,7 +36,7 @@ public class ReservationResponse {
         this.carId = r.getCar().getCar_id();
         this.brand = r.getCar().getBrand();
         this.model = r.getCar().getModel();
-        this.reservationDate = r.getReservationDate();
+        this.rentalDate = r.getRentalDate();
 
     }
 

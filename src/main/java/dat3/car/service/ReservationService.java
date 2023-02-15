@@ -29,7 +29,7 @@ private final MemberRepository memberRepository;
 
     public ReservationResponse makeReservation (ReservationRequest body) {
         try {
-          if (body.getCarId() == null || body.getReservationDate() == null || body.getUsername() == null) {
+          if (body.getCarId() == null || body.getRentalDate() == null || body.getUsername() == null) {
               throw new Exception("Missing data");
           }
           else {

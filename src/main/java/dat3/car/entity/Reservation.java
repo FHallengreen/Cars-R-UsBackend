@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@ToString
 @Getter
 @Setter
 @Entity
@@ -36,11 +35,6 @@ public class Reservation {
         this.car = car;
         this.member = member;
         this.rentalDate = rentalDate;
-    }
-    @Override
-    public String toString() {
-        return "Reservation [id=" + id + ", carId=" + car.getCar_id() + ", carBrand=" + car.getBrand() +
-                ", memberUsername=" + member.getUsername() + ", rentalDate=" + rentalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "]";
     }
 
 }

@@ -22,7 +22,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     Reservation createReservation(@RequestBody ReservationRequest body) {
          return reservationService.createReservation(body);
      }

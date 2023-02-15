@@ -26,7 +26,7 @@ public class ReservationResponse {
     private String brand;
     private String model;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime rentalDate;
+    private LocalDate rentalDate;
 
 
     public ReservationResponse(Reservation r) {

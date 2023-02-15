@@ -16,7 +16,7 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
 
-    boolean existsByCarAndRentalDate(Car car, LocalDateTime rentalDate);
+    boolean existsByCarAndRentalDate(Car car, LocalDate rentalDate);
 
     @Query("SELECT r FROM Reservation r JOIN r.member m WHERE m.username = :username")
     List<Reservation> findByMemberUsername(@Param("username") String username);

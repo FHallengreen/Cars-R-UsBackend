@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,9 +19,9 @@ public class ReservationRequest {
     private Member member;
     private Car car;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime rentalDate;
+    private LocalDate rentalDate;
 
-    public ReservationRequest(Member member, Car car, LocalDateTime rentalDate) {
+    public ReservationRequest(Member member, Car car, LocalDate rentalDate) {
         this.member = member;
         this.car = car;
         this.rentalDate = rentalDate;

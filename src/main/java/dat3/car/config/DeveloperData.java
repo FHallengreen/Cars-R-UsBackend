@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +40,7 @@ public class DeveloperData implements ApplicationRunner {
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
-    ReservationService reservationService = new ReservationService(reservationRepository, carRepository, memberRepository);
+    ReservationService reservationService = new ReservationService(reservationRepository, carRepository, memberRepository, userWithRolesRepository);
 
 
     final String passwordUsedByAll = "test12";
@@ -89,14 +89,14 @@ public class DeveloperData implements ApplicationRunner {
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setCar(car1);
         reservationRequest.setMember(m1);
-        reservationRequest.setRentalDate(LocalDateTime.of(2023,3,4,12,0));
+        reservationRequest.setRentalDate(LocalDate.of(2023,3,4));
 
         reservationService.createReservation(reservationRequest);
 
         ReservationRequest reservationRequest2 = new ReservationRequest();
         reservationRequest2.setCar(car2);
         reservationRequest2.setMember(m2);
-        reservationRequest2.setRentalDate(LocalDateTime.of(2023,3,5,12,0));
+        reservationRequest2.setRentalDate(LocalDate.of(2023,3,5));
 
         reservationService.createReservation(reservationRequest2);
 

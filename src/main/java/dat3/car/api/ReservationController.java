@@ -3,6 +3,7 @@ package dat3.car.api;
 
 import dat3.car.dto.ReservationRequest;
 import dat3.car.dto.ReservationResponse;
+import dat3.car.entity.Reservation;
 import dat3.car.service.ReservationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class ReservationController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-     ReservationResponse makeReservation(@RequestBody ReservationRequest body) {
-         return reservationService.makeReservation(body);
+    Reservation createReservation(@RequestBody ReservationRequest body) {
+         return reservationService.createReservation(body);
      }
 
      @GetMapping(path = "/{reservation_id}")

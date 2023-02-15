@@ -51,10 +51,12 @@ public class CarController {
         carService.setPricePerDayForCar(car_id,value);
     }
 
-    @PatchMapping("/max_discount/{car_id}/{value}")
+        @PatchMapping("/max_discount/{car_id}/{value}")
     void setMaxDiscount(@PathVariable int car_id, @PathVariable int value) {
         carService.setMaxDiscount(car_id,value);
     }
+
+
 
     // ADMIN
     @DeleteMapping("/{car_id}")

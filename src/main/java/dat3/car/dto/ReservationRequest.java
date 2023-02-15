@@ -15,14 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReservationRequest {
 
-    private Member username;
-    private Car carId;
+    private Member member;
+    private Car car;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime rentalDate;
 
-    public ReservationRequest(Member username, Car carId, LocalDateTime rentalDate) {
-        this.username = username;
-        this.carId = carId;
+    public ReservationRequest(Member member, Car car, LocalDateTime rentalDate) {
+        this.member = member;
+        this.car = car;
         this.rentalDate = rentalDate;
     }
 

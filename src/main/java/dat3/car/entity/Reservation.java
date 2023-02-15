@@ -37,6 +37,14 @@ public class Reservation {
         this.rentalDate = rentalDate;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", car=" + car +
+                ", member=" + member +
+                ", reservationDate=" + reservationDate +
+                ", rentalDate=" + rentalDate +
+                '}';
+    }
 }

@@ -51,7 +51,6 @@ public class DeveloperData implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-
         Member m1 = new Member("member1", "memb1@a.dk", "1234", "Kurt", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
 
         Member m2 = new Member("member2", "aaa@dd.dk", "4321", "Hanne", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
@@ -61,7 +60,7 @@ public class DeveloperData implements ApplicationRunner {
         Car car3 = new Car("VW", "ID4", 695, 595);
 
 
-        List<String> colours1 = new ArrayList<>();
+/*        List<String> colours1 = new ArrayList<>();
         colours1.add("blue");
         colours1.add("red");
 
@@ -76,7 +75,7 @@ public class DeveloperData implements ApplicationRunner {
         phonenumbers.put("mobile","12345");
         phonenumbers.put("work", "45678");
         m1.setPhones(phonenumbers);
-        m2.setPhones(phonenumbers);
+        m2.setPhones(phonenumbers);*/
 
         carRepository.save(car1);
         carRepository.save(car2);

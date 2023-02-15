@@ -11,4 +11,5 @@ import java.time.LocalDateTime;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
 
+    boolean existsByCarAndRentalDate(Car car, LocalDateTime rentalDate);
 }

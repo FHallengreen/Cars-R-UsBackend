@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ class ReservationServiceTest {
         carRepository.save(car1);
         memberRepository.save(m1);
 
-        LocalDateTime rentalDate = LocalDateTime.of(2023, 2, 15, 10, 0);
+        LocalDate rentalDate = LocalDate.of(2023, 2, 15);
 
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setCar(car1);
@@ -58,7 +59,7 @@ class ReservationServiceTest {
         existingReservation.setCar(car1);
         existingReservation.setMember(m1);
 
-        existingReservation.setRentalDate(LocalDateTime.now());
+        existingReservation.setRentalDate(LocalDate.now());
 
         reservationRepository.save(existingReservation);
 

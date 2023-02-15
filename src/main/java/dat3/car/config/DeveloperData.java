@@ -87,15 +87,15 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.save(m2);
 
         ReservationRequest reservationRequest = new ReservationRequest();
-        reservationRequest.setCar(car1);
-        reservationRequest.setMember(m1);
+        reservationRequest.setCarId(1);
+        reservationRequest.setMemberId("member1");
         reservationRequest.setRentalDate(LocalDate.of(2023,3,4));
 
         reservationService.createReservation(reservationRequest);
 
         ReservationRequest reservationRequest2 = new ReservationRequest();
-        reservationRequest2.setCar(car2);
-        reservationRequest2.setMember(m2);
+        reservationRequest2.setCarId(2);
+        reservationRequest2.setMemberId("member2");
         reservationRequest2.setRentalDate(LocalDate.of(2023,3,5));
 
         reservationService.createReservation(reservationRequest2);

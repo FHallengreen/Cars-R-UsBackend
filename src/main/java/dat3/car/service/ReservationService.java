@@ -15,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -37,32 +38,16 @@ public class ReservationService {
     }
 
 
-
     public Reservation createReservation(ReservationRequest reservationRequest) {
-        if (reservationRequest.getCar() == null || reservationRequest.getRentalDate() == null || reservationRequest.getMember() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Missing data");
-        }
-
-            Car car = new Car(reservationRequest.getCar().getBrand(),reservationRequest.getCar().getModel(),reservationRequest.getCar().getPricePrDay(),reservationRequest.getCar().getBestDiscount());
-            carRepository.save(car);
-
-            Member member = new Member(reservationRequest.getMember().getUsername(),reservationRequest.getMember().getEmail(), reservationRequest.getMember().getPassword(), reservationRequest.getMember().getFirstName(), reservationRequest.getMember().getLastName(), reservationRequest.getMember().getStreet(), reservationRequest.getMember().getCity(), reservationRequest.getMember().getZip());
-            memberRepository.save(member);
-            UserWithRoles user1 = new UserWithRoles();
-            user1.setUsername(reservationRequest.getMember().getUsername());
-            user1.setPassword(reservationRequest.getMember().getPassword());
-            user1.setEmail(reservationRequest.getMember().getEmail());
-            user1.addRole(Role.USER);
-//            userWithRolesRepository.save(user1);
-
+        Car car = carRepository.findById(reservationRequest.getCarId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found"));
         LocalDate rentalDate = reservationRequest.getRentalDate();
+        Member member = memberRepository.findById(reservationRequest.getMemberId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+
         if (reservationRepository.existsByCarAndRentalDate(car, rentalDate)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Car already reserved for the requested rental date");
-        }
-        else if (rentalDate.isBefore(LocalDate.now())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Rental date must be in the future");
-        }
-        else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car already reserved for the requested rental date");
+        } else if (rentalDate.isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rental date must be in the future");
+        } else {
             Reservation reservation = new Reservation(car, member, reservationRequest.getRentalDate());
             reservationRepository.save(reservation);
             return reservation;

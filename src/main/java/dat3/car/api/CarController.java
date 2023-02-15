@@ -4,6 +4,7 @@ import dat3.car.dto.CarRequest;
 import dat3.car.dto.CarResponse;
 import dat3.car.dto.MemberRequest;
 import dat3.car.dto.MemberResponse;
+import dat3.car.entity.Car;
 import dat3.car.service.CarService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,17 @@ public class CarController {
     @GetMapping
     List<CarResponse> getCars() {
         return carService.getCars(true);
+    }
+
+    @GetMapping(path = "/{brand}/{model}")
+    List<Car> findCarsByBrandAndModel(@PathVariable String brand, @PathVariable String model) {
+        return carService.findCarsByBrandAndModel(brand, model);
+    }
+
+    @GetMapping(path = "/average-price")
+    String findAveragePricePrDayForAllCars() {
+        int averagePrice = carService.findAveragePricePrDayForAllCars();
+        return averagePrice + " kr. per day";
     }
 
     //ADMIN

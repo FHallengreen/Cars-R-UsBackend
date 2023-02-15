@@ -67,4 +67,11 @@ public class CarService {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
+    public List<Car> findCarsByBrandAndModel(String brand, String model) {
+        return carRepository.findAllCarByBrandAndModel(brand, model);
+    }
+
+    public int findAveragePricePrDayForAllCars() {
+        return carRepository.findAveragePricePrDayForAllCars();
+    }
 }

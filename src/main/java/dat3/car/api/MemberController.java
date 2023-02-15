@@ -45,6 +45,11 @@ class MemberController {
         return memberService.editMember(body, username);
     }
 
+    @GetMapping("/with-reservation")
+    int membersWithReservation() {
+        return memberService.membersWithReservation().size();
+    }
+
     //ADMIN
     @PatchMapping("/ranking/{username}/{value}")
     void setRankingForUser(@PathVariable String username, @PathVariable int value) {

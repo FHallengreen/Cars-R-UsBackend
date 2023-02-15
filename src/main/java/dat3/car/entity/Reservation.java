@@ -1,16 +1,16 @@
 package dat3.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+@ToString
 @Getter
 @Setter
 @Entity
@@ -22,6 +22,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "username")
     private Member member;
@@ -36,15 +37,10 @@ public class Reservation {
         this.member = member;
         this.rentalDate = rentalDate;
     }
-
     @Override
     public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", car=" + car +
-                ", member=" + member +
-                ", reservationDate=" + reservationDate +
-                ", rentalDate=" + rentalDate +
-                '}';
+        return "Reservation [id=" + id + ", carId=" + car.getCar_id() + ", carBrand=" + car.getBrand() +
+                ", memberUsername=" + member.getUsername() + ", rentalDate=" + rentalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "]";
     }
+
 }

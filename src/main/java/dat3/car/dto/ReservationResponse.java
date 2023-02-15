@@ -19,8 +19,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationResponse {
 
-    private int id;
-    private String username;
+    private int reservationId;
     private String zip;
     private int carId;
     private String brand;
@@ -30,8 +29,7 @@ public class ReservationResponse {
 
 
     public ReservationResponse(Reservation r) {
-        this.id = r.getId();
-        this.username = r.getMember().getUsername();
+        this.reservationId = r.getId();
         this.zip = r.getMember().getZip();
         this.carId = r.getCar().getCar_id();
         this.brand = r.getCar().getBrand();
@@ -40,5 +38,16 @@ public class ReservationResponse {
 
     }
 
+    @Override
+    public String toString() {
+        return "ReservationResponse(" +
+                "id=" + reservationId +
+                ", zip='" + zip + '\'' +
+                ", carId=" + carId +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", rentalDate=" + rentalDate +
+                ')';
+    }
 
 }

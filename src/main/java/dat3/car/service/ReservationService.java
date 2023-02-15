@@ -30,6 +30,8 @@ public class ReservationService {
         this.memberRepository = memberRepository;
     }
 
+
+
     public Reservation createReservation(ReservationRequest reservationRequest) {
         LocalDateTime rentalDate = reservationRequest.getRentalDate();
         if (reservationRequest.getCar() == null || reservationRequest.getRentalDate() == null || reservationRequest.getMember() == null) {

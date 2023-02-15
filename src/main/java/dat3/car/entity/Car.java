@@ -1,5 +1,7 @@
 package dat3.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +41,7 @@ public class Car {
     @UpdateTimestamp
     private LocalDateTime lastEdited;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 

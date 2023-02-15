@@ -1,5 +1,6 @@
 package dat3.car.config;
 
+import dat3.car.dto.ReservationRequest;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
 import dat3.car.entity.Reservation;
@@ -38,6 +39,9 @@ public class DeveloperData implements ApplicationRunner {
     private UserWithRolesRepository userWithRolesRepository;
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    ReservationService reservationService = new ReservationService(reservationRepository, carRepository, memberRepository);
+
 
     final String passwordUsedByAll = "test12";
 
@@ -51,7 +55,6 @@ public class DeveloperData implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         Member m1 = new Member("member1", "memb1@a.dk", "1234", "Kurt", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
-
         Member m2 = new Member("member2", "aaa@dd.dk", "4321", "Hanne", "Wonnegut", "Lyngbyvej 2", "Lyngby", "2800");
 
         Car car1 = new Car("Volvo", "CX90", 895, 695);
@@ -83,13 +86,23 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.save(m1);
         memberRepository.save(m2);
 
-        Reservation reservation1 = new Reservation(car1, m1, LocalDateTime.of(2023,3,4,12,0));
-        Reservation reservation2 = new Reservation(car1, m2, LocalDateTime.of(2023,3,4,4,0));
+        ReservationRequest reservationRequest = new ReservationRequest();
+        reservationRequest.setCar(car1);
+        reservationRequest.setMember(m1);
+        reservationRequest.setRentalDate(LocalDateTime.of(2023,3,4,12,0));
+
+        reservationService.createReservation(reservationRequest);
+
+        ReservationRequest reservationRequest2 = new ReservationRequest();
+        reservationRequest2.setCar(car2);
+        reservationRequest2.setMember(m2);
+        reservationRequest2.setRentalDate(LocalDateTime.of(2023,3,5,12,0));
+
+        reservationService.createReservation(reservationRequest2);
+
 
         setupUserWithRoleUsers();
 
-        reservationRepository.save(reservation1);
-        reservationRepository.save(reservation2);
 
 
     }

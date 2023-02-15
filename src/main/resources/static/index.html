@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Members and Reservations</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Zip</th>
+        <th>Reservations</th>
+    </tr>
+    </thead>
+    <tbody id="members-table">
+    </tbody>
+</table>
+
+<script>
+    fetch("/api/members")
+        .then(response => response.json())
+        .then(data => {
+            let members = data;
+            let membersTable = document.querySelector("#members-table");
+            members.forEach(member => {
+                let row = document.createElement("tr");
+                row.innerHTML = `
+                        <td>${member.username}</td>
+                        <td>${member.email}</td>
+                        <td>${member.firstName}</td>
+                        <td>${member.lastName}</td>
+                        <td>${member.street}</td>
+                        <td>${member.city}</td>
+                        <td>${member.zip}</td>
+                        <td>${member.reservations ? renderReservations(member.reservations) : ""}</td>
+                    `;
+                membersTable.appendChild(row);
+            });
+        })
+        .catch(error => console.error(error));
+
+    function renderReservations(reservations) {
+        let result = "<ul>";
+        reservations.forEach(reservation => {
+            result += `ID: ${reservation.carId}, Brand: ${reservation.brand}, Model: ${reservation.model}, Rental Date: ${reservation.rentalDate}`;
+        });
+        result += "</ul>";
+        return result;
+    }
+</script>
+</body>
+</html>

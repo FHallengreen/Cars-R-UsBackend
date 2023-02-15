@@ -1,5 +1,7 @@
 package dat3.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -43,6 +45,17 @@ public class Member extends UserWithRoles {
     @Column(name = "phone_number")
     Map<String,String> phones = new HashMap<>();
 
+    /*
+By adding @JsonIgnore to the cars field in the Owner entity, the circular reference between Car and Owner is broken,
+and the JSON serialization should work without errors.
+
+Alternatively, you can use the Jackson @JsonManagedReference and @JsonBackReference annotations to create a bidirectional
+relationship between entities without causing infinite recursion. With this approach, you use @JsonManagedReference on
+the parent side of the relationship and @JsonBackReference on the child side. The @JsonManagedReference annotation
+instructs Jackson to serialize the annotated field, and the @JsonBackReference annotation instructs Jackson to ignore
+the annotated field during serialization.*/
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
@@ -53,5 +66,23 @@ public class Member extends UserWithRoles {
         this.street = street;
         this.city = city;
         this.zip = zip;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", zip='" + zip + '\'' +
+                ", approved=" + approved +
+                ", ranking=" + ranking +
+                ", created=" + created +
+                ", lastEdited=" + lastEdited +
+                ", favoriteCarColors=" + favoriteCarColors +
+                ", phones=" + phones +
+                ", reservations=" + reservations +
+                '}';
     }
 }

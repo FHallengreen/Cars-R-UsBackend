@@ -21,7 +21,6 @@ import java.time.LocalDate;
 public class ReservationResponse {
 
     private int reservationId;
-    private String zip;
     private int carId;
     private String brand;
     private String model;
@@ -31,7 +30,6 @@ public class ReservationResponse {
 
     public ReservationResponse(Reservation r) {
         this.reservationId = r.getId();
-        this.zip = r.getMember().getZip();
         this.carId = r.getCar().getCar_id();
         this.brand = r.getCar().getBrand();
         this.model = r.getCar().getModel();
@@ -43,7 +41,6 @@ public class ReservationResponse {
     public String toString() {
         return "ReservationResponse(" +
                 "id=" + reservationId +
-                ", zip='" + zip + '\'' +
                 ", carId=" + carId +
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +

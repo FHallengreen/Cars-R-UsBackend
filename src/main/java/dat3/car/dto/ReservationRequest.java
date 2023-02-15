@@ -27,6 +27,4 @@ public class ReservationRequest {
         this.rentalDate = rentalDate;
     }
 
-
-
 }

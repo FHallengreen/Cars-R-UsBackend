@@ -58,5 +58,7 @@ import java.util.stream.Collectors;
             for (Reservation r : m.getReservations()) {
                 this.reservations.add(new ReservationResponse(r));
         }
+
     }
-}}
+    }
+}

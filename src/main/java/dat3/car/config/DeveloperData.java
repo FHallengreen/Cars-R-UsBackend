@@ -62,6 +62,7 @@ public class DeveloperData implements ApplicationRunner {
         Car car3 = new Car("VW", "ID4", 695, 595);
 
 
+
 /*        List<String> colours1 = new ArrayList<>();
         colours1.add("blue");
         colours1.add("red");

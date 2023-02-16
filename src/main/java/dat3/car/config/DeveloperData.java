@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-//@EnableJpaRepositories(basePackages = {"dat3.security.repository", "dat3.car.repository"})
-//@ComponentScan(basePackages = "dat3.security")
 public class DeveloperData implements ApplicationRunner {
 
     @Autowired

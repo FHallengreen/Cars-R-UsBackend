@@ -50,8 +50,8 @@ class ReservationServiceTest {
         LocalDate rentalDate = LocalDate.of(2023, 2, 15);
 
         ReservationRequest reservationRequest = new ReservationRequest();
-        reservationRequest.setCar(car1);
-        reservationRequest.setMember(m1);
+        reservationRequest.setCarId(car1.getCar_id());
+        reservationRequest.setMemberId(m1.getUsername());
         reservationRequest.setRentalDate(rentalDate);
 
         // Creates another Rreservation with the same car and rental date

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,7 +39,7 @@ class ReservationServiceTest {
     void setUp() {
     }
 
-//    @Test
+    @Test
     public void testCreateReservationCarAlreadyReserved() {
         // Create test data with a car that is already reserved
         Member m1 = new Member("member1", "memb1@a.dk", "1234", "Kurt",
@@ -47,7 +48,7 @@ class ReservationServiceTest {
         carRepository.save(car1);
         memberRepository.save(m1);
 
-        LocalDate rentalDate = LocalDate.of(2023, 2, 15);
+        LocalDate rentalDate = LocalDate.now();
 
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setCarId(car1.getCar_id());
@@ -63,7 +64,12 @@ class ReservationServiceTest {
 
         reservationRepository.save(existingReservation);
 
-        // expecting an IllegalArgumentException
-        reservationService.createReservation(reservationRequest);
+        // expecting an ResponseStatusException
+        try {
+            reservationService.createReservation(reservationRequest);
+            fail("Expected an ResponseStatusException to be thrown");
+        } catch (ResponseStatusException e) {
+            assertEquals("org.springframework.web.server.ResponseStatusException: 400 BAD_REQUEST \"Car already reserved for the requested rental date\"", e.toString());
+        }
     }
 }

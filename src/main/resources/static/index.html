@@ -1,77 +1,350 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Members and Reservations</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+    <title>Car Rental Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+    <script>
+        $(document).ready(function () {
+            $("#carTable").hide();
+            $("#memberTable").hide();
+            $("#reservationTable").hide();
+            $("#getCars").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/cars',
+                    success: function (data) {
+                        //display cars data
+                        var table = "<table><tr><th>ID</th><th>Brand</th><th>Model</th><th>Price Per Day</th><th>Best Discount</th></tr>";
+                        //populate table with data
+                        $.each(data, function (index, car) {
+                            table += "<tr><td>" + car.car_id + "</td><td>" + car.brand + "</td><td>" + car.model + "</td><td>" + car.pricePrDay + "</td><td>" + car.bestDiscount + "</td></tr>";
+                        });
+                        table += "</table>";
 
-        th {
-            background-color: #f2f2f2;
-        }
-
-        ul {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-</head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>Username</th>
-        <th>Email</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Street</th>
-        <th>City</th>
-        <th>Reservations</th>
-    </tr>
-    </thead>
-    <tbody id="members-table">
-    </tbody>
-</table>
-
-<script>
-    fetch("/api/members")
-        .then(response => response.json())
-        .then(data => {
-            let members = data;
-            let membersTable = document.querySelector("#members-table");
-            members.forEach(member => {
-                let row = document.createElement("tr");
-                row.innerHTML = `
-                        <td>${member.username}</td>
-                        <td>${member.email}</td>
-                        <td>${member.firstName}</td>
-                        <td>${member.lastName}</td>
-                        <td>${member.street}</td>
-                        <td>${member.city}</td>
-                        <td>${member.reservations ? renderReservations(member.reservations) : ""}</td>
-                    `;
-                membersTable.appendChild(row);
+                        //display table
+                        $("#carTable").html("<h1>Cars</h1>" + table);
+                        $("#memberTable").hide();
+                        $("#reservationTable").hide();
+                        $("#carTable").show();
+                    },
+                    error: function () {
+                        alert('Error in fetching cars data!');
+                    }
+                });
             });
-        })
-        .catch(error => console.error(error));
+            $("#submitBrandAndModel").click(function () {
+                var brand = $("#brand").val();
+                var model = $("#model").val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/cars/' + brand + '/' + model,
+                    success: function (data) {
+                        //display cars data
+                        var table = "<table><tr><th>Car ID</th><th>Brand</th><th>Model</th><th>Price Per Day</th><th>Best Discount</th></tr>";
+                        //populate table with data
+                        $.each(data, function (index, car) {
+                            table += "<tr><td>" + car.car_id + "</td><td>" + car.brand + "</td><td>" + car.model + "</td><td>" + car.pricePrDay + "</td><td>" + car.bestDiscount + "</td></tr>";
+                        });
+                        table += "</table>";
+                        //display table
+                        $("#carTable").html("<h1>Cars</h1>" + table);
+                        $("#memberTable").hide();
+                        $("#reservationTable").hide();
+                        $("#carTable").show();
+                        $("#popup2").hide(); // hide the popup box after getting the data
+                    },
+                    error: function () {
+                        alert('Error in fetching cars data!');
+                    }
+                });
+            });
 
-    function renderReservations(reservations) {
-        let result = "<ul>";
-        reservations.forEach(reservation => {
-            result += `ID: ${reservation.carId}, Brand: ${reservation.brand}, Model: ${reservation.model}, Rental Date: ${reservation.rentalDate}`;
+            $("#getMembers").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/members',
+                    success: function (data) {
+                        //display members data
+                        var table = "<table><tr><th>Username</th><th>Email</th><th>First Name</th><th>Last Name</th><th>Street</th><th>City</th><th>Zip</th></tr>";
+                        //populate table with data
+                        $.each(data, function (index, member) {
+                            table += "<tr><td>" + member.username + "</td><td>" + member.email + "</td><td>" + member.firstName + "</td><td>" + member.lastName + "</td><td>" + member.street + "</td><td>" + member.city + "</td><td>" + member.zip + "</td></tr>";
+                        });
+                        table += "</table>";
+                        $("#memberTable").html("<h1>Members</h1>" + table);
+                        $("#carTable").hide();
+                        $("#reservationTable").hide();
+                        $("#memberTable").show();
+                    },
+                    error: function () {
+                        alert('Error in fetching members data!');
+                    }
+                });
+            });
+
+            $("#submitUsername").click(function () {
+                var username = $("#username").val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/members/' + username,
+                    success: function (data) {
+                        //display member data
+                        var member = data;
+                        var table = "<table><tr><th>Username</th><th>Email</th><th>First Name</th><th>Last Name</th><th>Street</th><th>City</th><th>Zip</th></tr>";
+                        table += "<tr><td>" + member.username + "</td><td>" + member.email + "</td><td>" + member.firstName + "</td><td>" + member.lastName + "</td><td>" + member.street + "</td><td>" + member.city + "</td><td>" + member.zip + "</td></tr>";
+                        table += "</table>";
+                        //display table
+                        $("#memberTable").html("<h1>Members</h1>" + table);
+                        $("#carTable").hide();
+                        $("#reservationTable").hide();
+                        $("#memberTable").show();
+                        $("#popup").hide(); // hide the popup box after getting the data
+                    },
+                    error: function () {
+                        alert('Error in fetching member data!');
+                    }
+                });
+            });
+
+            $("#submitReservationId").click(function () {
+                var reservationId = $("#reservationId").val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/reservations/' + reservationId,
+                    success: function (data) {
+                        //display reservation data
+                        var reservation = data;
+                        var table = "<table><tr><th>Reservation ID</th><th>Car ID</th><th>Brand</th><th>Model</th><th>Rental Date</th></tr>";
+                        table += "<tr><td>" + reservation.reservationId + "</td><td>" + reservation.carId + "</td><td>" + reservation.brand + "</td><td>" + reservation.model + "</td><td>" + reservation.rentalDate + "</td></tr>";
+                        table += "</table>";
+                        //display table
+                        $("#reservationTable").html("<h1>Reservations</h1>" + table);
+                        $("#carTable").hide();
+                        $("#memberTable").hide();
+                        $("#reservationTable").show();
+                        $("#popup3").hide(); // hide the popup box after getting the data
+                    },
+                    error: function () {
+                        alert('Error in fetching reservation data!');
+                    }
+                });
+            });
+
+            $("#getReservations").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/reservations',
+                    success: function (data) {
+                        //display reservations data
+                        var table = "<table><tr><th>Reservation ID</th><th>Car ID</th><th>Brand</th><th>Model</th><th>Rental Date</th></tr>";
+                        //populate table with data
+                        $.each(data, function (index, reservation) {
+                            table += "<tr><td>" + reservation.reservationId + "</td><td>" + reservation.carId + "</td><td>" + reservation.brand + "</td><td>" + reservation.model + "</td><td>" + reservation.rentalDate + "</td></tr>";
+                        });
+                        table += "</table>";
+                        //display table
+                        $("#reservationTable").html("<h1>Reservations</h1>" + table);
+                        $("#memberTable").hide();
+                        $("#carTable").hide();
+                        $("#reservationTable").show();
+                    },
+                    error: function () {
+                        alert('Error in fetching reservations data!');
+                    }
+                });
+            });
         });
-        result += "</ul>";
-        return result;
+
+    </script>
+</head>
+<style>
+    #popup {
+        display: none;
     }
-</script>
+
+    #popup2 {
+        display: none;
+    }
+
+    #popup3 {
+        display: none;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        background-color: #f1f1f1;
+    }
+
+    h1, h2, h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        font-size: 36px;
+        color: #333;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 14px;
+        color: #333;
+    }
+
+    h3 {
+        font-size: 12px;
+        color: #333;
+    }
+
+    button {
+        display: block;
+        margin: 10px 0;
+        padding: 5px 10px;
+        border: none;
+        background-color: #226B9BFF;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 3px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: bold;
+
+    }
+
+    input[type="text"] {
+        display: block;
+        margin-bottom: 5px;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #carTable, #memberTable, #reservationTable {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #226b9b;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #eae9e9;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 20px;
+    }
+
+    .item {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<body>
+<h1>Car Rental Application</h1>
+<div class="grid-container">
+    <div class="item">
+        <h2>Cars</h2>
+        <button id="getCars">Get All Cars</button>
+
+        <h3>Find Car By Brand And Model</h3>
+        <button id="openPopup2">Find Cars By Brand And Model</button>
+        <div id="popup2">
+            <label for="brand">Enter Brand:</label>
+            <input type="text" id="brand">
+            <br>
+            <label for="model">Enter Model:</label>
+            <input type="text" id="model">
+            <br>
+            <button id="submitBrandAndModel">Submit</button>
+        </div>
+        <script>
+            $("#openPopup2").click(function () {
+                $("#popup2").show();
+            });
+        </script>
+
+
+    </div>
+    <div class="item">
+        <h2>Members</h2>
+        <button id="getMembers">Get All Members</button>
+
+        <h3>Find Member By Username</h3>
+        <button id="openPopup">Find Member By Username</button>
+        <div id="popup">
+            <label for="username">Enter Username:</label>
+            <input type="text" id="username">
+            <button id="submitUsername">Submit</button>
+        </div>
+        <script>$("#openPopup").click(function () {
+            $("#popup").show();
+        });</script>
+    </div>
+    <div class="item">
+        <h2>Reservations</h2>
+        <button id="getReservations">Get All Reservations</button>
+
+        <h3>Find Reservation By ID</h3>
+        <button id="openPopup3">Find Reservation By ID</button>
+        <div id="popup3">
+            <label for="reservationId">Enter Reservation ID:</label>
+            <input type="text" id="reservationId">
+            <button id="submitReservationId">Submit</button>
+        </div>
+        <script>
+            $("#openPopup3").click(function () {
+                $("#popup3").show();
+            });
+        </script>
+
+
+    </div>
+</div>
+<div id="carTable"></div>
+<div id="memberTable"></div>
+<div id="reservationTable"></div>
 </body>
+
 </html>

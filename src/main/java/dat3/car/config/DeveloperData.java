@@ -59,25 +59,6 @@ public class DeveloperData implements ApplicationRunner {
         Car car2 = new Car("BMW", "i330", 795, 645);
         Car car3 = new Car("VW", "ID4", 695, 595);
 
-
-
-/*        List<String> colours1 = new ArrayList<>();
-        colours1.add("blue");
-        colours1.add("red");
-
-        List<String> colours2 = new ArrayList<>();
-        colours2.add("silver");
-        colours2.add("green");
-
-        m1.setFavoriteCarColors(colours1);
-        m2.setFavoriteCarColors(colours2);
-
-        Map<String, String> phonenumbers = new HashMap<>();
-        phonenumbers.put("mobile","12345");
-        phonenumbers.put("work", "45678");
-        m1.setPhones(phonenumbers);
-        m2.setPhones(phonenumbers);*/
-
         carRepository.save(car1);
         carRepository.save(car2);
         carRepository.save(car3);
@@ -88,17 +69,47 @@ public class DeveloperData implements ApplicationRunner {
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setCarId(1);
         reservationRequest.setMemberId("member1");
-        reservationRequest.setRentalDate(LocalDate.of(2023,3,4));
+        reservationRequest.setRentalDate(LocalDate.now());
 
         reservationService.createReservation(reservationRequest);
 
         ReservationRequest reservationRequest2 = new ReservationRequest();
         reservationRequest2.setCarId(2);
         reservationRequest2.setMemberId("member2");
-        reservationRequest2.setRentalDate(LocalDate.of(2023,3,5));
-
+        reservationRequest2.setRentalDate(LocalDate.of(2024,3,5));
         reservationService.createReservation(reservationRequest2);
 
+        Member m3 = new Member("member3", "bbb@cc.dk", "5678", "Sarah", "Smith", "Nørrebrogade 10", "Copenhagen", "2200");
+        Member m4 = new Member("member4", "xyz@abc.dk", "8765", "John", "Doe", "Amagerbrogade 50", "Copenhagen", "2300");
+
+        Car car4 = new Car("Tesla", "Model S", 995, 795);
+        Car car5 = new Car("Audi", "Q5", 745, 595);
+        Car car6 = new Car("Mercedes-Benz", "C-Class", 895, 695);
+
+        carRepository.save(car4);
+        carRepository.save(car5);
+        carRepository.save(car6);
+
+        memberRepository.save(m3);
+        memberRepository.save(m4);
+
+        ReservationRequest reservationRequest3 = new ReservationRequest();
+        reservationRequest3.setCarId(3);
+        reservationRequest3.setMemberId("member3");
+        reservationRequest3.setRentalDate(LocalDate.of(2023, 3, 8));
+        reservationService.createReservation(reservationRequest3);
+
+        ReservationRequest reservationRequest4 = new ReservationRequest();
+        reservationRequest4.setCarId(4);
+        reservationRequest4.setMemberId("member4");
+        reservationRequest4.setRentalDate(LocalDate.of(2023, 4, 15));
+        reservationService.createReservation(reservationRequest4);
+
+        ReservationRequest reservationRequest5 = new ReservationRequest();
+        reservationRequest5.setCarId(5);
+        reservationRequest5.setMemberId("member2");
+        reservationRequest5.setRentalDate(LocalDate.of(2023, 5, 20));
+        reservationService.createReservation(reservationRequest5);
 
         setupUserWithRoleUsers();
 

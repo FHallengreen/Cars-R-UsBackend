@@ -12,4 +12,6 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: cp06.nordicway.dk
+          username: ${{ secrets.secrets_username }}
+          password: ${{ secrets.secrets_password }}
           server-dir: /cars-r-us.fhallengreen.com/

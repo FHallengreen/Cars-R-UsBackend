@@ -1,0 +1,28 @@
+# Compiled class file
+*.class
+
+# Log files
+*.log
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse files
+.classpath
+.project
+.settings/
+*.launch
+
+# Gradle files
+.gradle/
+build/
+
+# Maven files
+target/
+pom.xml.*
+mvnw
+mvnw.cmd
+/application.yml

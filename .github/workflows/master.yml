@@ -1,0 +1,45 @@
+name: Spring Boot Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Build with Maven
+        run: mvn package -DskipTests
+
+      - name: Set up environment variables
+        run: |
+          echo "JDBC_URL=jdbc:mysql://148.251.244.167:3306/fhalleng_cars" >> $GITHUB_ENV
+          echo "JDBC_USERNAME=${{ secrets.JDBC_USERNAME }}" >> $GITHUB_ENV
+          echo "JDBC_PASSWORD=${{ secrets.JDBC_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Run application
+        run: java -jar target/myapp.jar
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: cp06.nordicway.dk
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /cars.fhallengreen.com/

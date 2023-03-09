@@ -16,11 +16,17 @@ jobs:
           password: ${{ secrets.secrets_password }}
           server-dir: /cars-r-us.fhallengreen.com/
 
-      - name: 📝 Configure application properties
+      - name: Print environment variables
+        run: |
+          echo $JDBC_URL
+          echo $JDBC_USERNAME
+          echo $JDBC_PASSWORD
         env:
           JDBC_URL: ${{ secrets.JDBC_URL }}
           JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
           JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+
+      - name: 📝 Configure application properties
         run: |
           echo "spring.datasource.url=${JDBC_URL}" >> application.yml
           echo "spring.datasource.username=${JDBC_USERNAME}" >> application.yml

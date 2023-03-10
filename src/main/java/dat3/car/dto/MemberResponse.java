@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-    @Setter
-    @NoArgsConstructor
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public class MemberResponse {
+@Setter
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class MemberResponse {
     String username; //Remember this is the primary key
     String email;
     String firstName;
@@ -47,18 +47,18 @@ import java.util.stream.Collectors;
         this.lastName = m.getLastName();
         this.city = m.getCity();
         this.zip = m.getZip();
+        this.ranking = m.getRanking();
         if (includeAll) {
             this.created = m.getCreated();
             this.edited = m.getLastEdited();
             this.approved = m.isApproved();
-            this.ranking = m.getRanking();
         }
         if (includeReservations) {
             this.reservations = new ArrayList<>();
             for (Reservation r : m.getReservations()) {
                 this.reservations.add(new ReservationResponse(r));
-        }
+            }
 
-    }
+        }
     }
 }

@@ -25,4 +25,3 @@ target/
 pom.xml.*
 mvnw
 mvnw.cmd
-/application.yml

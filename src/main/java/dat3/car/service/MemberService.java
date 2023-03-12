@@ -1,6 +1,5 @@
 package dat3.car.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import dat3.car.dto.MemberRequest;
 import dat3.car.dto.MemberResponse;
 import dat3.car.dto.ReservationResponse;
@@ -12,43 +11,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MemberService {
 
-    private final MemberRepository memberRepository;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    MemberRepository memberRepository;
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
-    public String addMember(MemberRequest memberRequest) throws JsonProcessingException {
-        Map<String, Object> response = new HashMap<>();
+    public MemberResponse addMember(MemberRequest memberRequest) {
 
         if (memberRepository.existsById(memberRequest.getUsername())) {
-            response.put("error", "Member with this ID already exists");
-            return objectMapper.writeValueAsString(response);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Member with this ID already exist");
+        }
+        if (memberRepository.existsByEmail(memberRequest.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Member with this Email already exist");
         }
 
-        if (memberRepository.existsByEmail(memberRequest.getEmail())) {
-            response.put("error", "Member with this email already exists");
-            return objectMapper.writeValueAsString(response);
-        }
 
         Member newMember = MemberRequest.getMemberEntity(memberRequest);
         newMember = memberRepository.save(newMember);
-
-        response.put("success", true);
-        response.put("message", "Member created successfully");
-        response.put("data", newMember);
-
-        return objectMapper.writeValueAsString(response);
+        return new MemberResponse(newMember, false, false);
     }
 
     public List<MemberResponse> getMembers(boolean includeAll) {

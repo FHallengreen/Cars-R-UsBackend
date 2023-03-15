@@ -34,14 +34,14 @@ public class ReservationController {
         return reservationService.getReservationsForUser(username);
     }
 
-
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     Reservation createReservation(@RequestBody ReservationRequest body) {
          return reservationService.createReservation(body);
      }
 
 
-
+    @PreAuthorize("hasAuthority('ADMIN')")
         @GetMapping
         List<ReservationResponse> getReservations() {
             return reservationService.getReservations();

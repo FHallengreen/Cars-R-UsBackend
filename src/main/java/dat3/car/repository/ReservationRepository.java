@@ -1,5 +1,6 @@
 package dat3.car.repository;
 
+import dat3.car.dto.ReservationResponse;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
 import dat3.car.entity.Reservation;
@@ -19,5 +20,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     boolean existsByCarAndRentalDate(Car car, LocalDate rentalDate);
 
     @Query("SELECT r FROM Reservation r JOIN r.member m WHERE m.username = :username")
-    List<Reservation> findByMemberUsername(@Param("username") String username);
+    List<ReservationResponse> findByMemberUsername(@Param("username") String username);
 }

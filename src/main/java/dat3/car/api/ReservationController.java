@@ -23,15 +23,23 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    @GetMapping(path = "/{reservation_id}")
+    ReservationResponse getReservation(@PathVariable int reservation_id) {
+        return reservationService.getReservation(reservation_id);
+    }
+
+    @GetMapping("/user/{username}")
+    List<ReservationResponse> getReservationsForUser(@PathVariable String username){
+        return reservationService.getReservationsForUser(username);
+    }
+
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     Reservation createReservation(@RequestBody ReservationRequest body) {
          return reservationService.createReservation(body);
      }
 
-     @GetMapping(path = "/{reservation_id}")
-     ReservationResponse getReservation(@PathVariable int reservation_id) {
-            return reservationService.getReservation(reservation_id);
-        }
+
 
         @GetMapping
         List<ReservationResponse> getReservations() {

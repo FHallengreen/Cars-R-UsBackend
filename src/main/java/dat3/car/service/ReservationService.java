@@ -48,6 +48,7 @@ public class ReservationService {
         } else if (rentalDate.isBefore(LocalDate.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rental date must be in the future");
         } else {
+
             Reservation reservation = new Reservation(car, member, reservationRequest.getRentalDate());
             reservationRepository.save(reservation);
             return reservation;
@@ -59,6 +60,10 @@ public class ReservationService {
 
         return reservations.stream().map(ReservationResponse::new).toList();
 
+    }
+
+    public List<ReservationResponse> getReservationsForUser(String username){
+        return reservationRepository.findByMemberUsername(username);
     }
 
     public ReservationResponse getReservation(int reservation_id) {

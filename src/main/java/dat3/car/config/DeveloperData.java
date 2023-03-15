@@ -84,7 +84,8 @@ public class DeveloperData implements ApplicationRunner {
         Car car18 = new Car("Subaru", "Outback", 800, 700);
         Car car19 = new Car("Land Rover", "Range Rover", 2000, 1900);
 
-
+        m1.addRole(Role.ADMIN);
+        m1.addRole(Role.USER);
         carRepository.save(car1);
         carRepository.save(car2);
         carRepository.save(car3);
@@ -133,9 +134,6 @@ public class DeveloperData implements ApplicationRunner {
 
 
         setupUserWithRoleUsers();
-
-
-
     }
 
     private void setupUserWithRoleUsers() {

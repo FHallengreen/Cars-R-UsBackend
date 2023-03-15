@@ -8,6 +8,7 @@ import dat3.car.entity.Car;
 import dat3.car.service.CarService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    //ADMIN ONLY
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     List<CarResponse> getCars() {
         return carService.getCars(true);
@@ -40,7 +41,7 @@ public class CarController {
         return averagePrice + " kr. per day";
     }
 
-    //ADMIN
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping(path = "/{car_id}")
     CarResponse getCarById(@PathVariable int car_id) throws Exception {
         return carService.getCarById(car_id);
@@ -52,13 +53,13 @@ public class CarController {
     return carService.addCar(body);
     }
 
-    //MEMBER
+    @PreAuthorize("hasAuthority('USER')")
     @PutMapping("/{car_id}")
     ResponseEntity<Boolean> editCar(@RequestBody CarRequest body, @PathVariable int car_id) {
         return carService.editCar(body,car_id);
     }
 
-    //ADMIN
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/price_per_day/{car_id}/{value}")
     void setPricePerDay(@PathVariable int car_id, @PathVariable int value) {
         carService.setPricePerDayForCar(car_id,value);

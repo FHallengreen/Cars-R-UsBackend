@@ -8,6 +8,7 @@ import dat3.car.service.ReservationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,12 @@ public class ReservationController {
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping(path = "/{reservation_id}")
     ReservationResponse getReservation(@PathVariable int reservation_id) {
         return reservationService.getReservation(reservation_id);
     }
-
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/user/{username}")
     List<ReservationResponse> getReservationsForUser(@PathVariable String username){
         return reservationService.getReservationsForUser(username);
